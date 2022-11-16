@@ -13,8 +13,6 @@ const insertSelect = item => {
  
     item.appendChild(select)
     select.classList.add('hide')
-    console.log(item)
-    // insertOptions(item)
     
 }
 
