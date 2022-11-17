@@ -5,11 +5,13 @@ let meat = [
     'Cheddar', 'Elite', 'Buffalo', 'Wolf', 
     'Choripan', 'Blumenau', 'Junior', 'Cordeiro',
     'especial'
-]
+];
+
+
 
 const getItem = event => {
     insertSelect(event)
-    insertMeat(event)
+    hideIcon(event)
 }
 
 const insertSelect = event => {
@@ -25,9 +27,8 @@ const createSelect = () =>{
     const select = document.createElement('select')
     select.id = 'myselect'
     select.name = 'myselect'
-    select.setAttribute('onchange', 'getMeat(this.value)')
+    select.setAttribute('onchange', 'insertMeat(this.value)')
     const options =  createOptions(select)
-    // console.log(options)
     return options
 }
 
@@ -38,11 +39,6 @@ const createOptions = select =>{
     return select
 }
 
-const insertMeat = meat =>{
-    hideIcon(meat)
-
-}
-
 const hideIcon = meat =>{
     const icon = meat.target
     const iconClass = meat.target.className
@@ -51,16 +47,14 @@ const hideIcon = meat =>{
     }
 }
 
-const getMeat = meat =>{
-    const meatTarget = meat.text
-    console.log(meatTarget)
-   
+const insertMeat = meat =>{
+
+  const parentDiv = container.addEventListener('click', (e)=>{
+    return (e.target.parentNode)
+  })
+  console.log(parentDiv)
 }
 
-const inserInterface = ()=>{
-    const displayDiv = document.createElement('div')
-    // console.log(displayDiv)
-}
 container.addEventListener('click', getItem)
 
  
