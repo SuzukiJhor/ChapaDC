@@ -1,29 +1,40 @@
 const container = document.querySelector('.container')
 
+let carnes = [
+    'Bacon','Costela','Forever', 'Stupendo',
+    'Cheddar', 'Elite', 'Buffalo', 'Wolf', 
+    'Choripan', 'Blumenau', 'Junior', 'Cordeiro',
+    'especial'
+]
 
+const getItem = event => {
+   insertSelect(event)
+}
 
-const getItem = e => {
-    const parent = e.target.parentNode
+const insertSelect = event => {
+    const parent = event.target.parentNode
     const item = document.querySelector(`.${parent.className.slice(5)}`)
-    insertSelect(item)
-}
-
-const insertSelect = item => {
     const select = createSelect()
- 
-    item.appendChild(select)
+    if(item.childElementCount < 2 ){
+        item.appendChild(select)
+    }
     select.classList.add('hide')
+    console.log(item)
     
-}
-
-const insertOptions = item =>{
-    // console.log(item)
 }
 
 const createSelect = () =>{
     const select = document.createElement('select')
     select.id = 'myselect'
     select.name = 'myselect'
+    const options =  createOptions(select)
+    return options
+}
+
+const createOptions = select =>{
+    carnes.forEach(item =>{
+        select.options[select.options.length] = new Option(`${item}`, `${item}`)
+    })
     return select
 }
 
