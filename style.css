@@ -39,3 +39,11 @@ i{
 .hide{
     display: none;
 }
+/* #myselect{
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 1px solid #333;
+    font-size: 15px;
+    padding-right: 20px;
+} */
