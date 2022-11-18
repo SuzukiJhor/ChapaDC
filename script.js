@@ -8,7 +8,6 @@ let meat = [
 ];
 
 
-
 const getItem = event => {
     insertSelect(event)
     hideIcon(event)
@@ -17,9 +16,9 @@ const getItem = event => {
 const insertSelect = event => {
     const parent = event.target.parentNode
     const item = document.querySelector(`.${parent.className.slice(5)}`)
-    const select = createSelect()
+    const selectOptions = createSelect()
     if(item.childElementCount < 2 ){
-        item.appendChild(select)
+        item.appendChild(selectOptions)
     }
 }
 
@@ -49,10 +48,47 @@ const hideIcon = meat =>{
 
 const insertMeat = meat =>{
 
-  const parentDiv = container.addEventListener('click', (e)=>{
-    return (e.target.parentNode)
+    container.addEventListener('click', e =>{
+    const parentDiv = e.target.parentNode
+    insertDisplay()
+    // parentDiv.innerHTML = createTimerDiv()
   })
-  console.log(parentDiv)
+  
+}
+
+const insertDisplay = ()=>{
+    const timerDiv = createTimerDiv()
+    console.log(timerDiv);
+    container.appendChild(timerDiv)
+}
+
+const createTimerDiv = ()=>{
+    const timerDiv = document.createElement('div')
+    timerDiv.id = 'timer'   
+    const duration = 60 * 3
+    startTimer(duration, timerDiv)
+    return timerDiv
+}
+
+const startTimer = (duration, display)=>{
+    let timer = duration, minutes, seconds
+
+    setInterval(()=>{
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10)
+
+        minutes = minutes < 10 ? '0'+ minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        console.log(minutes)
+
+        display.textContent = minutes + ":" + seconds
+
+        if(--timer < 0){
+            timer = duration
+        }
+
+    },1000)
 }
 
 container.addEventListener('click', getItem)
