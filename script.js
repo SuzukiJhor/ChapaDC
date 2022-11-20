@@ -11,106 +11,120 @@ let MeatPoint = ['Bem', 'Ponto', 'Mal']
 
 
 const insertSelect = event => {
-    hideIcon(event)
     const parent = event.target.parentNode
-    const item = document.querySelector(`.${parent.className.slice(5)}`)
-    const selectOptions = createSelect()
-    if(item.childElementCount < 2 ){
-        item.appendChild(selectOptions)
-    }
+
+    hideIcon(event)
+    createSelect(parent)
 }
 
-const createSelect = () =>{
+const createSelect = item =>{
     const select = document.createElement('select')
     select.id = 'myselect'
     select.name = 'myselect'
-    select.setAttribute('onchange', 'insertMeat(this.value)')
+    select.setAttribute('onchange', 'getMeat(this)')
+
     const selectOptions =  createOptions(select)
-    return selectOptions
+
+    if(item.childElementCount < 3 ){
+        item.appendChild(selectOptions)
+    }
+    
+    const selectPointMeat = document.createElement('select')
+    selectPointMeat.id = 'selectPointMeat'
+    selectPointMeat.name = 'selectPointMeat'
+    selectPointMeat.setAttribute('onchange', 'getPoint(this)')
+    MeatPoint.forEach(item =>{
+        selectPointMeat.options[selectPointMeat.options.length] = new Option(`${item}`, `${item}`)
+    })
+
+    if(item.childElementCount == 3){
+        item.appendChild(selectPointMeat)
+        selectPointMeat.style.display= 'none'
+    }
 }
 
 const createOptions = select =>{
     meat.forEach(item =>{
         select.options[select.options.length] = new Option(`${item}`, `${item}`)
     })
+
     return select
 }
 
-const hideIcon = meat =>{
-    const icon = meat.target
+const hideIcon = item =>{
+    const icon = item.target
     const iconClass = icon.className
+
     if(iconClass == 'fa-solid fa-play'){
         icon.style.display = 'none'
     }
 }
 
-const insertMeat = value =>{
+const getMeat = item =>{
+    const selectedMeat = item.value
+    const currentDiv = item.parentNode
+    item.style.display = 'none'
     
-    container.addEventListener('click', e =>{
-    const parentDiv = e.target.parentNode
-    const selectCurrent = parentDiv.querySelector('#myselect')
-    parentDiv.removeChild(selectCurrent)
-    dynamicContent(value,parentDiv) 
-  })
-  
+    currentDiv.querySelector('#selectPointMeat').style.display='flex'
+
+    insertTextContent(selectedMeat,currentDiv) 
 }
 
-const dynamicContent = (value, currentDiv) => {
+const insertTextContent = (value, currentDiv) => {
     
-    const displayShow = document.createElement('div')
-    displayShow.id = 'elementShow'
+    const displayShow = currentDiv.querySelector('#dynamicContent')
 
     const textValue = document.createElement('p')
-    textValue.innerText = value
+        .innerText = value
     
     displayShow.append(textValue)
 
     currentDiv.appendChild(displayShow)
-
-    createPointTimer(currentDiv)
 }
 
 
-const createPointTimer = currentDiv =>{
-    const select = document.createElement('select')
-    select.id = 'selectPointMeat'
-    select.name = 'selectPointMeat'
-    select.setAttribute('onchange', 'getPoint(this.value)')
-    MeatPoint.forEach(item =>{
-        select.options[select.options.length] = new Option(`${item}`, `${item}`)
-    })
-    currentDiv.append(select)
-}
+// const createPointTimer = currentDiv =>{
+//     const select = document.createElement('select')
+//     select.id = 'selectPointMeat'
+//     select.name = 'selectPointMeat'
+//     select.setAttribute('onchange', 'getPoint(this.value)')
+//     MeatPoint.forEach(item =>{
+//         select.options[select.options.length] = new Option(`${item}`, `${item}`)
+//     })
+//     currentDiv.append(select)
+// }
 
 const getPoint = point =>{
+    const pointMeat = point.value
+    const currentDiv = point.parentNode
     let timerPoint;
-
-    if( point == 'mal'){
+    console.log(pointMeat)
+    if( pointMeat == 'mal'){
         timerPoint = 10
     }
-    if( point=='ponto'){
+    if( pointMeat == 'ponto'){
         timerPoint = 20
     }
-    if(point = 'bem'){
+    if(pointMeat == 'bem'){
         timerPoint = 30
     }
+    console.log(timerPoint)
+    createTimerDiv(timerPoint, currentDiv)
 
-    container.addEventListener('click', e =>{
-        const currentDiv = e.target.parentNode
-        const selectCurrent = currentDiv.querySelector('#selectPointMeat')
-        currentDiv.removeChild(selectCurrent)
-
-        createTimerDiv(timerPoint, currentDiv)
-})
-    
+    point.style.display = 'none'
 }
 
 const createTimerDiv = (timer, currentDiv) =>{
     const timerDiv = document.createElement('div')
-    timerDiv.id = 'timer'   
-    const duration = timer
-    startTimer(duration, timerDiv)
-    currentDiv.appendChild(timerDiv)
+    timerDiv.id = 'timer'
+    timerDiv.name = 'timer'
+
+    startTimer(timer, timerDiv)
+
+    const dynamicDiv = currentDiv.querySelector('#dynamicContent')
+    dynamicDiv.appendChild(timerDiv)
+
+    console.log(dynamicDiv)
     console.log(currentDiv)
 }
 
