@@ -12,9 +12,11 @@ let MeatPoint = ['Bem', 'Ponto', 'Mal']
 
 const insertSelect = event => {
     const parent = event.target.parentNode
-
-    hideIcon(event)
-    createSelect(parent)
+    console.log(parent.className)
+    if(parent.className == 'item'){
+        hideIcon(event)
+        createSelect(parent)
+    }
 }
 
 const createSelect = item =>{
@@ -80,52 +82,40 @@ const insertTextContent = (value, currentDiv) => {
     displayShow.append(textValue)
 
     currentDiv.appendChild(displayShow)
+
+    resetBtn(currentDiv)
 }
-
-
-// const createPointTimer = currentDiv =>{
-//     const select = document.createElement('select')
-//     select.id = 'selectPointMeat'
-//     select.name = 'selectPointMeat'
-//     select.setAttribute('onchange', 'getPoint(this.value)')
-//     MeatPoint.forEach(item =>{
-//         select.options[select.options.length] = new Option(`${item}`, `${item}`)
-//     })
-//     currentDiv.append(select)
-// }
 
 const getPoint = point =>{
     const pointMeat = point.value
     const currentDiv = point.parentNode
     let timerPoint;
-    console.log(pointMeat)
-    if( pointMeat == 'mal'){
+ 
+    if( pointMeat == 'Mal'){
         timerPoint = 10
     }
-    if( pointMeat == 'ponto'){
+    if( pointMeat == 'Ponto'){
         timerPoint = 20
     }
-    if(pointMeat == 'bem'){
+    if(pointMeat == 'Bem'){
         timerPoint = 30
     }
     console.log(timerPoint)
-    createTimerDiv(timerPoint, currentDiv)
+    createTimerDiv(pointMeat, timerPoint, currentDiv)
 
     point.style.display = 'none'
 }
 
-const createTimerDiv = (timer, currentDiv) =>{
+const createTimerDiv = (point, timer, currentDiv) =>{
     const timerDiv = document.createElement('div')
     timerDiv.id = 'timer'
     timerDiv.name = 'timer'
+    timerDiv.textContent = point
 
     startTimer(timer, timerDiv)
 
     const dynamicDiv = currentDiv.querySelector('#dynamicContent')
     dynamicDiv.appendChild(timerDiv)
-
-    console.log(dynamicDiv)
-    console.log(currentDiv)
 }
 
 const startTimer = (duration, display)=>{
@@ -150,6 +140,18 @@ const startTimer = (duration, display)=>{
         clearInterval(meuInterval)
     }
 }
+
+const resetBtn = item =>{
+    const reset = document.createElement('button')
+    reset.type = 'button'
+    reset.id = 'resetBtn'
+    reset.textContent = 'Reset'
+
+    item.appendChild(reset)
+    console.log(reset)
+    console.log(item)
+}
+
 
 container.addEventListener('click', insertSelect)
 
