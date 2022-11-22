@@ -12,8 +12,8 @@ let MeatPoint = ['Bem', 'Ponto', 'Mal']
 
 const insertSelect = event => {
     const parent = event.target.parentNode
-    console.log(parent.className)
-    if(parent.className == 'item'){
+
+    if(parent.id == 'item'){
         hideIcon(event)
         createSelect(parent)
     }
@@ -23,12 +23,14 @@ const createSelect = item =>{
     const select = document.createElement('select')
     select.id = 'myselect'
     select.name = 'myselect'
-    select.setAttribute('onchange', 'getMeat(this)')
-
+    select.setAttribute('onclick', 'getMeat(this)')
+    
     const selectOptions =  createOptions(select)
 
     if(item.childElementCount < 3 ){
         item.appendChild(selectOptions)
+        selectOptions.size = selectOptions.options.length
+
     }
     
     const selectPointMeat = document.createElement('select')
@@ -41,6 +43,7 @@ const createSelect = item =>{
 
     if(item.childElementCount == 3){
         item.appendChild(selectPointMeat)
+        selectPointMeat.size = selectPointMeat.options.length
         selectPointMeat.style.display= 'none'
     }
 }
@@ -110,11 +113,14 @@ const createTimerDiv = (point, timer, currentDiv) =>{
     const timerDiv = document.createElement('div')
     timerDiv.id = 'timer'
     timerDiv.name = 'timer'
-    timerDiv.textContent = point
 
+    const timerText = document.createElement('span')
+    timerText.innerText = point
+    
     startTimer(timer, timerDiv)
 
     const dynamicDiv = currentDiv.querySelector('#dynamicContent')
+    dynamicDiv.appendChild(timerText)
     dynamicDiv.appendChild(timerDiv)
 }
 

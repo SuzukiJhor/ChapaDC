@@ -39,11 +39,18 @@ i{
 .hide{
     display: none;
 }
-/* #myselect{
+
+#myselect{
+    position: absolute;
+    right: 340px;
+    box-shadow: 0 10px 25px rgba(0,0,0.3);
     appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    border: 1px solid #333;
-    font-size: 15px;
-    padding-right: 20px;
-} */
+    border: 0;
+    overflow: hidden;
+    height: 35vh; 
+}
+
+#myselect option{
+    padding: auto;
+    margin: 8px;
+}
