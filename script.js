@@ -1,13 +1,13 @@
 const container = document.querySelector('.container')
 
 let meat = [
-    'Bacon','Costela','Forever', 'Stupendo',
-    'Cheddar', 'Elite', 'Buffalo', 'Wolf', 
-    'Choripan', 'Blumenau', 'Junior', 'Cordeiro',
-    'especial'
+    'BACOM ','COSTELA','FOREVER', 'STUPENDO',
+    'CHEDDAR', 'ELITE', 'BUFALLO', 'WOLF', 
+    'CHORIPAN', 'BLUMENAU', 'JUNIOR', 'CORDEIRO',
+    'ESPECIAL'
 ];
 
-let MeatPoint = ['Bem', 'Ponto', 'Mal']
+let MeatPoint = ['BEM', 'PONTO', 'MAL']
 
 
 const insertSelect = event => {
@@ -23,7 +23,8 @@ const createSelect = item =>{
     const select = document.createElement('select')
     select.id = 'myselect'
     select.name = 'myselect'
-    select.setAttribute('onclick', 'getMeat(this)')
+    select.required
+    select.setAttribute('onchange', 'getMeat(this)')
     
     const selectOptions =  createOptions(select)
 
@@ -94,13 +95,13 @@ const getPoint = point =>{
     const currentDiv = point.parentNode
     let timerPoint;
  
-    if( pointMeat == 'Mal'){
+    if( pointMeat == 'MAL'){
         timerPoint = 10
     }
-    if( pointMeat == 'Ponto'){
+    if( pointMeat == 'PONTO'){
         timerPoint = 20
     }
-    if(pointMeat == 'Bem'){
+    if(pointMeat == 'BEM'){
         timerPoint = 30
     }
     console.log(timerPoint)
